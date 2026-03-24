@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Member & Pets Profile - Pawney Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* ปรับสีให้เข้ากับ LOGO PAWNEY */
+            --primary: #5D4037; /* สีน้ำตาลเข้มจากตัวอักษร Pawney */
+            --primary-hover: #4E342E;
+            --secondary: #FFC107; /* สีทองจากดวงดาว/ขนสุนัข */
+            --accent: #81D4FA; /* สีฟ้าจากเครื่องบิน */
+            --bg-color: #FFFDE7; /* สีครีมอ่อนมากเพื่อให้ดูนุ่มนวล */
+            --card-bg: #FFFFFF;
+            --text-main: var(--primary);
+            --text-muted: #8D6E63; /* น้ำตาลอ่อน */
+            --border-color: #D7CCC8; /* น้ำตาลเทา */
+            --transition-speed: 0.3s;
+        }
+
+        /* --- Keyframes for Animation --- */
+        @keyframes fadeInSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Prompt', sans-serif; 
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            margin: 0; 
+            padding: 0;
+            padding-bottom: 90px;
+            color: var(--text-main);
+            animation: fadeIn var(--transition-speed) ease-out;
+        }
+
+        .container { 
+            padding: 16px;
+        }
+        
+        /* Staggered animation for children */
+        .member-card,
+        .section-title,
+        .pet-list .pet-card,
+        .btn-add-wrapper {
+            opacity: 0;
+            animation: fadeInSlideUp 0.5s ease-out forwards;
+        }
+
+        .member-card { animation-delay: 0.1s; }
+        .section-title { animation-delay: 0.3s; }
+        .pet-list .pet-card:nth-child(1) { animation-delay: 0.5s; }
+        .pet-list .pet-card:nth-child(2) { animation-delay: 0.7s; }
+        .btn-add-wrapper { animation-delay: 0.9s; }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 24px 0 12px 0;
+            color: var(--text-muted);
+        }
+
+        .member-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .member-avatar {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            object-fit: cover;
+        }
+
+        .member-name { font-size: 22px; font-weight: 600; color: var(--primary); margin: 12px 0 2px 0; }
+        .member-id { font-size: 14px; color: var(--text-muted); margin: 0 0 20px 0; }
+        
+        /* ปรับปรุงส่วน Contact Info ไม่ให้ตัดบรรทัด */
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap; /* ถ้ายาวไปให้ปัดลงบรรทัดใหม่ทั้งก้อน */
+            justify-content: center;
+            gap: 12px 24px; /* ระยะห่าง บน-ล่าง 12px, ซ้าย-ขวา 24px */
+            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-main);
+            white-space: nowrap; /* บังคับไม่ให้ตัดคำใน 1 item */
+        }
+
+        .contact-item .icon {
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .pet-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .pet-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            border-color: var(--secondary);
+        }
+
+        .pet-avatar {
+            width: 70px; height: 70px;
+            border-radius: 14px;
+            object-fit: cover;
+            background: #FFF8E1; 
+            padding: 4px;
+        }
+
+        .pet-info { flex: 1; }
+        .pet-name { margin: 0 0 6px 0; font-size: 18px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 8px;}
+        .pet-type-icon { font-size: 18px; }
+        .pet-detail { margin: 0 0 8px 0; font-size: 13px; color: var(--text-muted); }
+        
+        .pet-chip-tag { 
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #FFF8E1;
+            color: var(--text-main);
+            padding: 4px 10px; 
+            border-radius: 8px; 
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .edit-icon {
+            position: absolute; right: 16px; top: 16px;
+            color: var(--text-muted); font-size: 18px; text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .edit-icon:hover {
+            color: var(--secondary);
+        }
+
+        /* ครอบลิงก์ของปุ่ม */
+        .btn-add-wrapper {
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            background: var(--secondary); 
+            color: var(--primary); 
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-add:hover {
+            background: #FFB300;
+        }
+
+        .btn-add .icon {
+            font-size: 20px;
+        }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--card-bg); padding: 12px 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.03);
+            display: flex; justify-content: center;
+            border-top: 1px solid var(--border-color);
+            padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            animation: fadeIn 1s ease-out;
+        }
+
+        .nav-item {
+            text-align: center; color: var(--text-muted);
+            text-decoration: none; font-size: 12px;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0 24px;
+        }
+
+        .nav-item:hover { color: var(--text-main); }
+        
+        .nav-item.active { color: var(--primary); font-weight: 600; }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .nav-icon { font-size: 22px; transition: transform 0.2s; }
+        .nav-item:hover .nav-icon { transform: scale(1.1); }
+
+    </style>
+</head>
+<body>
+
+<main class="container">
+    
+    <section class="member-card">
+        <img src="https://p16-sign-sg.tiktokcdn.com/tos-alisg-avt-0068/c818d438fbde3b90f17f0f142151f346~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=6ec58360&x-expires=1774540800&x-signature=FZ0FOnhbMQlj6Z34obnehdMMkr4%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my" alt="รูปโปรไฟล์ของคุณ Pawney" class="member-avatar" loading="lazy">
+        <h2 class="member-name">คุณ Pawney</h2>
+        <p class="member-id">Member ID: PT-20260319</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="icon">📱</span>
+                <span>081-XXX-XXXX</span>
+            </div>
+            <div class="contact-item">
+                <span class="icon">✉️</span>
+                <span>pawney.services@email.com</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-title">
+        <span>สัตว์เลี้ยงเดินทางของฉัน (2)</span>
+    </div>
+
+    <section class="pet-list">
+        <article class="pet-card">
+            <img src="https://preview.redd.it/pomeranian-mix-v0-mzhbs049mw9f1.jpeg?width=640&crop=smart&auto=webp&s=89e52724feeee18f7450c801eba6e8d61515277f" alt="รูปน้องชานม" class="pet-avatar" loading="lazy">
+            <div class="pet-info">
+                <h3 class="pet-name">น้องลาเต้ <span class="pet-type-icon" aria-label="สุนัข">🐶</span></h3>
+                <p class="pet-detail">สุนัข • ปอม • 3 ปี 2 เดือน</p>
+                <p class="pet-chip-tag">🔖 ไมโครชิป: 933000000000001</p>
+            </div>
+            <a href="#" class="edit-icon" aria-label="แก้ไขข้อมูลน้องชานม">✎</a>
+        </article>
+
+        <article class="pet-card">
+            <img src="https://scontent.fbkk28-1.fna.fbcdn.net/v/t39.30808-6/279916278_5045622235534357_2370261691191715886_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=25d718&_nc_ohc=h3unbSo_Tk0Q7kNvwHyzJyf&_nc_oc=AdrVUuvqHW2ILfTQcFt72GTJU5JMMDQIIUjhOxngMjv3ZEUMloYPJ8LxqqDFMqI72_h5fexwFotZgTEgiOD9AZSh&_nc_zt=23&_nc_ht=scontent.fbkk28-1.fna&_nc_gid=pEgYmoJo0UWEyt3rW-QIcQ&_nc_ss=7a32e&oh=00_AfxfADdSd7c-PN7beecVwF-2gQ2OGUIXxdsaTlT-HCAMbQ&oe=69C89C0A" alt="รูปน้องลาเต้" class="pet-avatar" loading="lazy">
+            <div class="pet-info">
+                <h3 class="pet-name">น้องลาแต้ <span class="pet-type-icon" aria-label="แมว">🐱</span></h3>
+                <p class="pet-detail">แมว • สก็อตติช โฟลด์ • 2 ปี</p>
+                <p class="pet-chip-tag">🔖 ไมโครชิป: 933000000000002</p>
+            </div>
+            <a href="#" class="edit-icon" aria-label="แก้ไขข้อมูลน้องลาเต้">✎</a>
+        </article>
+    </section>
+
+    <a href="add-pet.html" class="btn-add-wrapper" aria-label="ไปหน้าเพิ่มสัตว์เลี้ยงใหม่">
+        <button class="btn-add" tabindex="-1">
+            <span class="icon">+</span> เพิ่มสัตว์เลี้ยง
+        </button>
+    </a>
+
+</main>
+
+<nav class="bottom-nav">
+    <a href="#" class="nav-item active" aria-current="page">
+        <span class="nav-icon">👤</span>
+        <span>Profile</span>
+    </a>
+</nav>
+
+</body>
+</html>

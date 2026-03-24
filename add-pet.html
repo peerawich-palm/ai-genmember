@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Add Pet - Pawney</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5D4037;
+            --secondary: #FFC107;
+            --bg-color: #FFFDE7;
+            --text-main: var(--primary);
+            --text-muted: #8D6E63;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Prompt', sans-serif; 
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            margin: 0; 
+            padding: 0;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .icon-container {
+            font-size: 80px;
+            margin-bottom: 24px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+
+        p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin: 0 0 32px 0;
+            line-height: 1.5;
+        }
+
+        .btn-back {
+            padding: 14px 32px;
+            border-radius: 12px;
+            background: var(--primary); 
+            color: white; 
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-back:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="icon-container">
+        🚧 🐾
+    </div>
+
+    <h1>หน้านี้กำลังปรับปรุง</h1>
+    <p>ระบบการเพิ่มสัตว์เลี้ยงใหม่กำลังอยู่ระหว่าง<br>การพัฒนา อดใจรออีกนิดนะครับ!</p>
+
+    <a href="index.html" class="btn-back">
+        <span>←</span> กลับไปหน้าโปรไฟล์
+    </a>
+
+</body>
+</html>
